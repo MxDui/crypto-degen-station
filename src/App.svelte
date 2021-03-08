@@ -1,30 +1,24 @@
 <script>
-	export let name;
+  import { Container, Col, Row, Card, Button} from "sveltestrap";
+  import { onMount } from "svelte";
+  import "./home.css";
+
+  let ethPrice;
+  let myCryptos = [];
+  onMount(async () => {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true"
+    );
+	const data = await response.json();
+	ethPrice = data['ethereum'];
+  });
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+<Container class="text-center p-5">
+	{#if ethPrice}
+	<h1>{ethPrice.usd}</h1>
+	{:else}
+	<h1>Loading...</h1>
+	{/if}
+	<Button class="btn-success">Add Crypto</Button>
+</Container>
