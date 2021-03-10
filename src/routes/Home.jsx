@@ -6,6 +6,7 @@ import { HttpLink } from "apollo-link-http";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import AddCryptoModal from "../components/AddCryptoModal";
+import NavBar from "../components/NavBar";
 
 export const client = new ApolloClient({
   link: new HttpLink({
@@ -49,53 +50,43 @@ const Home = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <div className="container">
-      <div className="vertical-center">
-        <div className="row">
-          <div className="col-sm">
-            <div class="card">
-              <img class="card-img-top" src="..." alt="Card image cap"></img>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">
-                  Go somewhere
-                </a>
-              </div>
+    <div className="home">
+      <NavBar></NavBar>
+      <div className="container">
+        <div className="vertical-center">
+          <div className="row">
+            <div className="col-sm">
+              <h1>
+                Dai price:{" "}
+                {ethLoading || daiLoading
+                  ? "Loading token data..."
+                  : "$" +
+                    // parse responses as floats and fix to 2 decimals
+                    (
+                      parseFloat(daiPriceInEth) * parseFloat(ethPriceInUSD)
+                    ).toFixed(2)}
+              </h1>
+              <h1>
+                Dai total liquidity:{" "}
+                {daiLoading
+                  ? "Loading token data..."
+                  : // display the total amount of DAI spread across all pools
+                    parseFloat(daiTotalLiquidity).toFixed(0)}
+              </h1>
+              <button
+                className="btn btn-add p-2 m-3"
+                onClick={() => setModalShow(true)}
+              >
+                Add Crypto
+              </button>
             </div>
-            <h1>
-              Dai price:{" "}
-              {ethLoading || daiLoading
-                ? "Loading token data..."
-                : "$" +
-                  // parse responses as floats and fix to 2 decimals
-                  (
-                    parseFloat(daiPriceInEth) * parseFloat(ethPriceInUSD)
-                  ).toFixed(2)}
-            </h1>
-            <h1>
-              Dai total liquidity:{" "}
-              {daiLoading
-                ? "Loading token data..."
-                : // display the total amount of DAI spread across all pools
-                  parseFloat(daiTotalLiquidity).toFixed(0)}
-            </h1>
-            <button
-              className="btn btn-add p-2 m-3"
-              onClick={() => setModalShow(true)}
-            >
-              Add Crypto
-            </button>
           </div>
         </div>
+        <AddCryptoModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        ></AddCryptoModal>
       </div>
-      <AddCryptoModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      ></AddCryptoModal>
     </div>
   );
 };

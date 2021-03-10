@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Form, FormControl, InputGroup, Button } from "react-bootstrap";
 import coingeckoApi from "../apis/coingeckoApi";
+import "../styles/home.css";
+
 const AddCryptoModal = (props) => {
   const [cryptos, setCryptos] = useState("");
   const [selectedCrypto, setSelectedCrypto] = useState("");
@@ -55,9 +57,7 @@ const AddCryptoModal = (props) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-          <Button className="">
-              Add Crypto
-          </Button>
+        <button className="btn btn-add">Add Crypto</button>
       </Modal.Footer>
     </Modal>
   );
