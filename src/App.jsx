@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Home from "../src/routes/Home";
+import Portfolio from "./routes/Portfolio";
 import NavBar from "./components/NavBar";
 import Wishlist from "./routes/Wishlist";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/wishlist" component={Wishlist}></Route>
-          <Route exact path="/portfolio" component={Home}></Route>
+          <Route exact path="/portfolio" component={Portfolio}></Route>
+          <Route component={NotFound}></Route>
         </Switch>
       </Router>
     </div>

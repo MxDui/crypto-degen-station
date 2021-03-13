@@ -3,7 +3,7 @@ import "../styles/home.css";
 import AddCryptoModal from "../components/AddCryptoModal";
 import NavBar from "../components/NavBar";
 
-const Home = () => {
+const Portfolio = () => {
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -28,4 +28,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Portfolio;
